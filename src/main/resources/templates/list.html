@@ -5,12 +5,16 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Spring Boot + JPA + Datatables</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-	<script src="/js/datatable.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.js"></script>
 </head>
 
 <body>
@@ -44,19 +48,30 @@
     
     
     $(document).ready( function () {
-   	 var table = $('#students').DataTable({
-   			"sAjaxSource": "/api/students",
-   			"sAjaxDataProp": "",
-   			
-   			"aoColumns": [
-   			       { "mData": "id"},
-   		     
-   				  { "mData": "sname" },
-   				  { "mData": "email" },
-   				  { "mData": "phone" }
-   				 
-   			]
-   	 })
+    	
+    	$.ajax({
+    		url:"/api/students",
+    		Method:"GET",
+    		dataType:"json",
+    		success:function(data){
+    			$("#students").dataTable({
+    				
+    				data:data,
+    				columns:[
+    					{"data":"id"},
+    					{"data" :"sname"},
+    					{"data":"email"},
+    					{"data":"phone"}
+    					
+    					
+    					
+    				]
+    			})
+    		}
+    		
+    		
+    	})
+  
    });
     
     
